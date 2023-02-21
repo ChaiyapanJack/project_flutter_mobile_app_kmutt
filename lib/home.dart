@@ -43,9 +43,9 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Image.asset('dash.png'),
+            //Image.asset('dash.png'),
             Text(
-              'Welcome! ตร้่ว',
+              'Welcome!',
               style: Theme.of(context).textTheme.displaySmall,
             ),
             const SignOutButton(),
