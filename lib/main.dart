@@ -1,6 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -113,3 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// Platform  Firebase App Id
+// android   1:509555505672:android:2e204e800624c6efbdefbd
+// ios       1:509555505672:ios:4305232188a58fe2bdefbd
