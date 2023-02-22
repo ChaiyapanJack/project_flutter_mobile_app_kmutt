@@ -28,8 +28,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
         MaterialPageRoute(builder: (context) => MyHomePage()),
       );
     }).catchError((error) {
-      print("Error This0------------------");
-      return print(error);
+      print(error.message);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(error.message, style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red));
     });
   }
 
