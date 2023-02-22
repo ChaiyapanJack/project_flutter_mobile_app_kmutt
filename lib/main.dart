@@ -1,15 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 
 import 'login_signup_page.dart';
-
+import 'firebase_options.dart';
 import 'package:provider/provider.dart'; // new
 
-void main() {
+void main() async {
   // Modify from here...
-  WidgetsFlutterBinding.ensureInitialized();
 
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
   // ...to here.
 }

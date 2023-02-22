@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_flutter_mobile_app_kmutt/home.dart';
 import 'package:project_flutter_mobile_app_kmutt/signup_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class MyLoginPage extends StatefulWidget {
   MyLoginPage({key}) : super(key: key);
@@ -10,6 +12,19 @@ class MyLoginPage extends StatefulWidget {
 }
 
 class _MyLoginPageState extends State<MyLoginPage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  signIn() {
+    _auth
+        .signInWithEmailAndPassword(email: "test@gmail.com", password: "123456")
+        .then((user) {
+      print("signed in test@gail.com");
+    }).catchError((error) {
+      print("Error This0------------------");
+      print(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +50,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                     children: <Widget>[
                       buildTextFieldEmail(),
                       buildTextFieldPassword(),
-                      buildButtonSignIn(),
+                      buildButtonSignIn(context),
                       buildOtherLine(),
                       buildButtonRegister(context),
                     ],
@@ -43,7 +58,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
             )));
   }
 
-  Container buildButtonSignIn() {
+  Widget buildButtonSignIn(BuildContext context) {
     return Container(
         constraints: BoxConstraints.expand(height: 50),
         child: Center(
@@ -53,7 +68,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
               child: InkWell(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 onTap: () {
-                  print('Tapped!');
+                  print('Tapped! Sigin');
+                  signIn();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MyHomePage()),
