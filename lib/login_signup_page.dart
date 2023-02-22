@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_flutter_mobile_app_kmutt/home.dart';
+import 'package:project_flutter_mobile_app_kmutt/signup_page.dart';
 
 class MyLoginPage extends StatefulWidget {
   MyLoginPage({key}) : super(key: key);
@@ -36,7 +37,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       buildTextFieldPassword(),
                       buildButtonSignIn(),
                       buildOtherLine(),
-                      buildButtonRegister()
+                      buildButtonRegister(context)
                     ],
                   )),
             )));
@@ -53,7 +54,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 onTap: () {
                   print('Tapped!');
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MyHomePage()),
                   );
@@ -109,9 +110,10 @@ Widget buildOtherLine() {
       ]));
 }
 
-Container buildButtonRegister() {
+Widget buildButtonRegister(BuildContext context) {
   return Container(
       constraints: BoxConstraints.expand(height: 50),
+      // ignore: sort_child_properties_last
       child: Center(
         child: Container(
           child: Material(
@@ -119,7 +121,11 @@ Container buildButtonRegister() {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(16)),
               onTap: () {
-                print('Tapped Button sign up');
+                print('Tapped! Sign UP');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MySignUpPage()),
+                );
               },
               child: Text(
                 "Sign up",
