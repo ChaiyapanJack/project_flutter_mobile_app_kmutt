@@ -1,12 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-
+import 'app_state.dart';
 import 'login_signup_page.dart';
 
-void main() => runApp(new MyApp());
+import 'package:provider/provider.dart'; // new
+import 'app_state.dart';
+
+void main() {
+  // Modify from here...
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(MyApp());
+  // ...to here.
+}
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     // ignore: unnecessary_new
@@ -20,7 +30,3 @@ class MyApp extends StatelessWidget {
         ));
   }
 }
-
-// Platform  Firebase App Id
-// android   1:509555505672:android:2e204e800624c6efbdefbd
-// ios       1:509555505672:ios:4305232188a58fe2bdefbd
