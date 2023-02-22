@@ -15,7 +15,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("My Firebase App", style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromARGB(255, 199, 247, 143),
+          backgroundColor: Color.fromARGB(255, 183, 236, 123),
         ),
         body: Container(
             color: Colors.green[50],
@@ -37,7 +37,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       buildTextFieldPassword(),
                       buildButtonSignIn(),
                       buildOtherLine(),
-                      buildButtonRegister(context)
+                      buildButtonRegister(context),
                     ],
                   )),
             )));
@@ -54,7 +54,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 onTap: () {
                   print('Tapped!');
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MyHomePage()),
                   );

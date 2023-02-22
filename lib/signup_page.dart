@@ -13,6 +13,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Sign up", style: TextStyle(color: Colors.white)),
+          backgroundColor: Color.fromARGB(255, 183, 236, 123),
         ),
         body: Container(
             color: Colors.green[50],
