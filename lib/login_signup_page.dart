@@ -13,15 +13,23 @@ class MyLoginPage extends StatefulWidget {
 
 class _MyLoginPageState extends State<MyLoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   signIn() {
     _auth
-        .signInWithEmailAndPassword(email: "test@gmail.com", password: "123456")
+        .signInWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim())
         .then((user) {
-      print("signed in test@gail.com");
+      print("signed in ${emailController.text.trim()}");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+      );
     }).catchError((error) {
       print("Error This0------------------");
-      print(error);
+      return print(error);
     });
   }
 
@@ -70,10 +78,6 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 onTap: () {
                   print('Tapped! Sigin');
                   signIn();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()),
-                  );
                 },
                 child: Text(
                   "Sign in",
@@ -96,6 +100,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         decoration: BoxDecoration(
             color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
         child: TextField(
+            controller: emailController,
             decoration: InputDecoration.collapsed(hintText: "Email"),
             style: TextStyle(fontSize: 18)));
   }
@@ -107,6 +112,7 @@ class _MyLoginPageState extends State<MyLoginPage> {
         decoration: BoxDecoration(
             color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
         child: TextField(
+            controller: passwordController,
             obscureText: true,
             decoration: InputDecoration.collapsed(hintText: "Password"),
             style: TextStyle(fontSize: 18)));
