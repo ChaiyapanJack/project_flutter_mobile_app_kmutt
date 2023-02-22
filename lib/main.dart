@@ -1,11 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
-import 'app_state.dart';
+
 import 'login_signup_page.dart';
 
 import 'package:provider/provider.dart'; // new
-import 'app_state.dart';
 
 void main() {
   // Modify from here...
