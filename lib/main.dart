@@ -2,24 +2,20 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 
-import 'app.dart';
-import 'firebase_options.dart';
+import 'login_signup_page.dart';
 
-// TODO(codelab user): Get API key
-const clientId = 'YOUR_CLIENT_ID';
+void main() => runApp(new MyApp());
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
-  FlutterFireUIAuth.configureProviders([
-    const EmailProviderConfiguration(),
-    const GoogleProviderConfiguration(clientId: clientId),
-  ]);
-
-  runApp(const MyApp());
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        title: 'Flutter Login Demo',
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: new LoginSignupPage());
+  }
 }
 
 // Platform  Firebase App Id
