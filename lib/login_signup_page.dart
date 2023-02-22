@@ -42,9 +42,24 @@ class _MyLoginPageState extends State<MyLoginPage> {
   Container buildButtonSignIn() {
     return Container(
         constraints: BoxConstraints.expand(height: 50),
-        child: Text("Sign in",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Colors.white)),
+        child: Center(
+          child: Container(
+            child: Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                onTap: () {
+                  print('Tapped!');
+                },
+                child: Text(
+                  "Sign in",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: Colors.green[200]),
         margin: EdgeInsets.only(top: 16),
