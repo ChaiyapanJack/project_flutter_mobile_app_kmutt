@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_flutter_mobile_app_kmutt/home.dart';
 
 class MyLoginPage extends StatefulWidget {
   MyLoginPage({key}) : super(key: key);
@@ -50,6 +51,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 onTap: () {
                   print('Tapped!');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                  );
                 },
                 child: Text(
                   "Sign in",
