@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("My Firebase App", style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromARGB(255, 199, 247, 143),
+          backgroundColor: Color.fromARGB(255, 183, 236, 123),
         ),
         body: Container(
             child: Center(
