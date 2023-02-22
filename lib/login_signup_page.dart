@@ -35,6 +35,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
                       buildTextFieldEmail(),
                       buildTextFieldPassword(),
                       buildButtonSignIn(),
+                      buildOtherLine(),
+                      buildButtonRegister()
                     ],
                   )),
             )));
@@ -92,4 +94,44 @@ class _MyLoginPageState extends State<MyLoginPage> {
             decoration: InputDecoration.collapsed(hintText: "Password"),
             style: TextStyle(fontSize: 18)));
   }
+}
+
+Widget buildOtherLine() {
+  return Container(
+      margin: EdgeInsets.only(top: 16),
+      child: Row(children: <Widget>[
+        Expanded(child: Divider(color: Colors.green[800])),
+        Padding(
+            padding: EdgeInsets.all(6),
+            child: Text("Don’t have an account?",
+                style: TextStyle(color: Colors.black87))),
+        Expanded(child: Divider(color: Colors.green[800])),
+      ]));
+}
+
+Container buildButtonRegister() {
+  return Container(
+      constraints: BoxConstraints.expand(height: 50),
+      child: Center(
+        child: Container(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              onTap: () {
+                print('Tapped Button sign up');
+              },
+              child: Text(
+                "Sign up",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
+      margin: EdgeInsets.only(top: 16),
+      padding: EdgeInsets.all(12));
 }
