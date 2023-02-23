@@ -23,11 +23,12 @@ class _MyHomePageState extends State<MyHomePage> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text("My Firebase App", style: TextStyle(color: Colors.white)),
           backgroundColor: Color.fromARGB(255, 183, 236, 123),
           actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.exit_to_app),
+                icon: Icon(Icons.logout_sharp),
                 color: Colors.white,
                 onPressed: () {
                   signOut(context);
@@ -47,8 +48,10 @@ class _MyHomePageState extends State<MyHomePage> {
 void signOut(BuildContext context) {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   _auth.signOut();
-  Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => MyLoginPage()),
-      ModalRoute.withName('/'));
+  Navigator.of(context).pop();
+  // Navigator.pop(
+  //   context,
+  //   MaterialPageRoute(builder: (context) => MyLoginPage()),
+  // );
+  // ModalRoute.withName('/'));
 }

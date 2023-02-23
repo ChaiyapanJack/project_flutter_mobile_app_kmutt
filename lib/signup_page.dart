@@ -40,14 +40,30 @@ class _MySignUpPageState extends State<MySignUpPage> {
             )));
   }
 
-  Container buildButtonSignUp(BuildContext context) {
+  Widget buildButtonSignUp(BuildContext context) {
     return Container(
         constraints: BoxConstraints.expand(height: 50),
-        child: Text("Sign up",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 18, color: Colors.white)),
+        // ignore: sort_child_properties_last
+        child: Center(
+          child: Container(
+            child: Material(
+              type: MaterialType.transparency,
+              child: InkWell(
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                onTap: () {
+                  print('Tapped! Sign up');
+                },
+                child: Text(
+                  "Sign up",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        ),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16), color: Colors.green[200]),
+            borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
         margin: EdgeInsets.only(top: 16),
         padding: EdgeInsets.all(12));
   }

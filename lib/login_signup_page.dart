@@ -145,14 +145,14 @@ Widget buildButtonRegister(BuildContext context) {
             child: InkWell(
               borderRadius: BorderRadius.all(Radius.circular(16)),
               onTap: () {
-                print('Tapped! Sign UP');
+                print('Tapped! Register');
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MySignUpPage()),
                 );
               },
               child: Text(
-                "Sign up",
+                "Register",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
