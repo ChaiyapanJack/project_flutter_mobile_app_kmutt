@@ -14,6 +14,7 @@ class MySignUpPage extends StatefulWidget {
 
 class _MySignUpPageState extends State<MySignUpPage> {
   final formKey = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passconController = TextEditingController();
@@ -27,6 +28,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
         email: emailController.text,
         password: passconController.text,
       );
+      Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -61,9 +63,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      buildTextFieldEmail(),
-                      buildTextFieldPassword(),
-                      buildTextFieldPasswordConfirm(),
+                      bildTextFieldEmailPassPasscon(),
                       buildButtonSignUp(context),
                     ],
                   )),
@@ -83,7 +83,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
                 onTap: () {
                   print('Tapped! Sign up');
                   if (formKey.currentState!.validate()) {
-                    print("varidate  pass");
+                    register();
                   }
                 },
                 child: Text(
@@ -101,57 +101,82 @@ class _MySignUpPageState extends State<MySignUpPage> {
         padding: EdgeInsets.all(12));
   }
 
-  Container buildTextFieldEmail() {
+  Container bildTextFieldEmailPassPasscon() {
+    var confirmPass;
     return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-          color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
       child: Form(
         key: formKey,
         child: Column(children: [
-          TextFormField(
-            controller: emailController,
-            decoration: InputDecoration.collapsed(hintText: "Email"),
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(fontSize: 18),
-            validator: (value) {
-              if (value == null ||
-                  !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                      .hasMatch(value)) {
-                return "Enter Correct Email Address";
-              } else {
-                return null;
-              }
-            },
+          Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.only(top: 12),
+            decoration: BoxDecoration(
+                color: Colors.yellow[50],
+                borderRadius: BorderRadius.circular(16)),
+            child: TextFormField(
+              controller: emailController,
+              decoration: InputDecoration.collapsed(hintText: "Email"),
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(fontSize: 18),
+              validator: (value) {
+                if (value == null ||
+                    !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                        .hasMatch(value)) {
+                  return "Enter Correct Email Address";
+                } else {
+                  return null;
+                }
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.only(top: 12),
+            decoration: BoxDecoration(
+                color: Colors.yellow[50],
+                borderRadius: BorderRadius.circular(16)),
+            child: TextFormField(
+                controller: passwordController,
+                obscureText: true,
+                decoration: InputDecoration.collapsed(hintText: "Password"),
+                style: TextStyle(fontSize: 18),
+                validator: (value) {
+                  confirmPass = value;
+                  if (value == null || value.isEmpty) {
+                    return "Please Enter New Password";
+                  } else if (value.length < 8) {
+                    return "Password must be atleast 8 characters long";
+                  } else {
+                    return null;
+                  }
+                }),
+          ),
+          Container(
+            padding: EdgeInsets.all(12),
+            margin: EdgeInsets.only(top: 12),
+            decoration: BoxDecoration(
+                color: Colors.yellow[50],
+                borderRadius: BorderRadius.circular(16)),
+            child: TextFormField(
+              controller: passconController,
+              obscureText: true,
+              decoration: InputDecoration.collapsed(hintText: "Re-password"),
+              style: TextStyle(fontSize: 18),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return "Please Re-Enter New Password";
+                } else if (value.length < 8) {
+                  return "Password must be atleast 8 characters long";
+                } else if (value != confirmPass) {
+                  return "Password must be same as above";
+                } else {
+                  return null;
+                }
+              },
+            ),
           ),
         ]),
       ),
     );
-  }
-
-  Container buildTextFieldPassword() {
-    return Container(
-        padding: EdgeInsets.all(12),
-        margin: EdgeInsets.only(top: 12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
-        child: TextField(
-            controller: passwordController,
-            obscureText: true,
-            decoration: InputDecoration.collapsed(hintText: "Password"),
-            style: TextStyle(fontSize: 18)));
-  }
-
-  Container buildTextFieldPasswordConfirm() {
-    return Container(
-        padding: EdgeInsets.all(12),
-        margin: EdgeInsets.only(top: 12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
-        child: TextField(
-            controller: passconController,
-            obscureText: true,
-            decoration: InputDecoration.collapsed(hintText: "Re-password"),
-            style: TextStyle(fontSize: 18)));
   }
 }
