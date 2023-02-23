@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:validators/validators.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MySignUpPage extends StatefulWidget {
   MySignUpPage({key}) : super(key: key);
@@ -8,6 +13,31 @@ class MySignUpPage extends StatefulWidget {
 }
 
 class _MySignUpPageState extends State<MySignUpPage> {
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passconController = TextEditingController();
+  late bool _sucess;
+  late String _userEmail;
+
+  void register() async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passconController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +64,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
                       buildTextFieldEmail(),
                       buildTextFieldPassword(),
                       buildTextFieldPasswordConfirm(),
-                      buildButtonSignUp(context)
+                      buildButtonSignUp(context),
                     ],
                   )),
             )));
@@ -52,6 +82,9 @@ class _MySignUpPageState extends State<MySignUpPage> {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 onTap: () {
                   print('Tapped! Sign up');
+                  if (formKey.currentState!.validate()) {
+                    print("varidate  pass");
+                  }
                 },
                 child: Text(
                   "Sign up",
@@ -70,13 +103,30 @@ class _MySignUpPageState extends State<MySignUpPage> {
 
   Container buildTextFieldEmail() {
     return Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
-        child: TextField(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
+      child: Form(
+        key: formKey,
+        child: Column(children: [
+          TextFormField(
+            controller: emailController,
             decoration: InputDecoration.collapsed(hintText: "Email"),
             keyboardType: TextInputType.emailAddress,
-            style: TextStyle(fontSize: 18)));
+            style: TextStyle(fontSize: 18),
+            validator: (value) {
+              if (value == null ||
+                  !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
+                return "Enter Correct Email Address";
+              } else {
+                return null;
+              }
+            },
+          ),
+        ]),
+      ),
+    );
   }
 
   Container buildTextFieldPassword() {
@@ -86,6 +136,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
         decoration: BoxDecoration(
             color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
         child: TextField(
+            controller: passwordController,
             obscureText: true,
             decoration: InputDecoration.collapsed(hintText: "Password"),
             style: TextStyle(fontSize: 18)));
@@ -98,6 +149,7 @@ class _MySignUpPageState extends State<MySignUpPage> {
         decoration: BoxDecoration(
             color: Colors.yellow[50], borderRadius: BorderRadius.circular(16)),
         child: TextField(
+            controller: passconController,
             obscureText: true,
             decoration: InputDecoration.collapsed(hintText: "Re-password"),
             style: TextStyle(fontSize: 18)));
