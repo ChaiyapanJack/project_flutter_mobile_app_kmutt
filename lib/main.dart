@@ -24,12 +24,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // ignore: unnecessary_new
     return new MaterialApp(
-        title: 'Flutter Login Demo',
-        theme: new ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: MyLoginPage(
-          key: null,
-        ));
+      title: 'Flutter Login Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyLoginPage(
+        key: null,
+      ),
+      routes: <String, WidgetBuilder>{
+        '/login_signup_page': (BuildContext context) => new MyLoginPage()
+      },
+    );
   }
 }

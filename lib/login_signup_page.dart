@@ -22,7 +22,10 @@ class _MyLoginPageState extends State<MyLoginPage> {
             email: emailController.text.trim(),
             password: passwordController.text.trim())
         .then((user) {
-      print("signed in ${emailController.text.trim()}");
+      print("signed in By ${emailController.text.trim()}");
+      print((emailController.text.trim()).indexOf('@'));
+      var user_name = ((emailController.text.trim())
+          .substring(0, (emailController.text.trim()).indexOf('@')));
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => MyHomePage()),
@@ -37,35 +40,38 @@ class _MyLoginPageState extends State<MyLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("My Firebase App", style: TextStyle(color: Colors.white)),
-          backgroundColor: Color.fromARGB(255, 183, 236, 123),
-        ),
-        body: Container(
-            color: Colors.green[50],
-            child: Center(
-              child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      gradient: LinearGradient(colors: [
-                        Color.fromARGB(255, 246, 238, 163),
-                        Colors.green
-                      ])),
-                  margin: EdgeInsets.all(32),
-                  padding: EdgeInsets.all(24),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      buildTextFieldEmail(),
-                      buildTextFieldPassword(),
-                      buildButtonSignIn(context),
-                      buildOtherLine(),
-                      buildButtonRegister(context),
-                    ],
-                  )),
-            )));
+    return Material(
+      child: Scaffold(
+          appBar: AppBar(
+            title:
+                Text("My Firebase App", style: TextStyle(color: Colors.white)),
+            backgroundColor: Color.fromARGB(255, 183, 236, 123),
+          ),
+          body: Container(
+              color: Colors.green[50],
+              child: Center(
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(colors: [
+                          Color.fromARGB(255, 246, 238, 163),
+                          Colors.green
+                        ])),
+                    margin: EdgeInsets.all(32),
+                    padding: EdgeInsets.all(24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        buildTextFieldEmail(),
+                        buildTextFieldPassword(),
+                        buildButtonSignIn(context),
+                        buildOtherLine(),
+                        buildButtonRegister(context),
+                      ],
+                    )),
+              ))),
+    );
   }
 
   Widget buildButtonSignIn(BuildContext context) {
