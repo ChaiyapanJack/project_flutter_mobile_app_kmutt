@@ -21,6 +21,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth _auth = FirebaseAuth.instance;
+    final data = ModalRoute.of(context)!.settings;
+    print(data);
+    late String LoginUser;
+
+    LoginUser = data.arguments as String;
+
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -39,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Center(
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-          Text("Hello", style: TextStyle(fontSize: 26)),
+          Text("Hello   ${LoginUser}", style: TextStyle(fontSize: 26)),
           //Text(widget.user.email, style: TextStyle(fontSize: 16)),
         ]))));
   }

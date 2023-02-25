@@ -26,9 +26,12 @@ class _MyLoginPageState extends State<MyLoginPage> {
       print((emailController.text.trim()).indexOf('@'));
       var user_name = ((emailController.text.trim())
           .substring(0, (emailController.text.trim()).indexOf('@')));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MyHomePage()),
+      Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (context) => MyHomePage(),
+            settings: RouteSettings(
+              arguments: user_name,
+            )),
       );
     }).catchError((error) {
       print(error.message);
