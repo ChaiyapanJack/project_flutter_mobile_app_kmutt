@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_flutter_mobile_app_kmutt/login_signup_page.dart';
+import 'twitter_trand_page.dart';
 
 class MyHomePage extends StatefulWidget {
   //final Firebase user;
@@ -46,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           Text("Hello   ${LoginUser}", style: TextStyle(fontSize: 26)),
-          buildButtonTwitterTrand()
+          buildButtonTwitterTrand(context)
           //Text(widget.user.email, style: TextStyle(fontSize: 16)),
         ]))));
   }
@@ -63,7 +64,7 @@ void signOut(BuildContext context) {
   // ModalRoute.withName('/'));
 }
 
-Widget buildButtonTwitterTrand() {
+Widget buildButtonTwitterTrand(BuildContext context) {
   return Container(
       constraints: BoxConstraints.expand(height: 50),
       // ignore: sort_child_properties_last
@@ -75,6 +76,19 @@ Widget buildButtonTwitterTrand() {
               borderRadius: BorderRadius.all(Radius.circular(16)),
               onTap: () {
                 print('Tapped! Twitter Trand');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => TodosScreen(
+                            todos: List.generate(
+                              20,
+                              (i) => Todo(
+                                'Todo $i',
+                                'A description of what needs to be done for Todo $i',
+                              ),
+                            ),
+                          )),
+                );
               },
               child: Text(
                 "Twitter Trand",
