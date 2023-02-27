@@ -31,6 +31,9 @@ class TodosScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final border = OutlineInputBorder(
+        borderRadius: BorderRadius.horizontal(left: Radius.circular(5)));
+
     return Scaffold(
       appBar: AppBar(
         title:
@@ -41,7 +44,45 @@ class TodosScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Text("mffdldfl"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: TextField(
+                      //controller: _textController,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10),
+                        hintText: 'Search',
+                        border: border,
+                        errorBorder: border,
+                        disabledBorder: border,
+                        focusedBorder: border,
+                        focusedErrorBorder: border,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.clear),
+                          onPressed: () {
+                            // _textController.clear();
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 12, 147, 16),
+                        borderRadius:
+                            BorderRadius.only(topRight: Radius.circular(10))),
+                    child: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {}),
+                  )
+                ],
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,
