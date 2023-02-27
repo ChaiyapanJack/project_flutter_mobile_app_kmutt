@@ -44,6 +44,7 @@ class TodosScreen extends StatelessWidget {
         borderRadius: BorderRadius.horizontal(left: Radius.circular(5)));
 
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title:
             Text("Search Trand Twitter", style: TextStyle(color: Colors.white)),

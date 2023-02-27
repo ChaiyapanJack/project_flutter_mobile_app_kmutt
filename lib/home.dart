@@ -29,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
     LoginUser = data.arguments as String;
 
     return Scaffold(
+        backgroundColor: Colors.green[50],
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text("My Firebase App", style: TextStyle(color: Colors.white)),
@@ -68,6 +69,7 @@ Widget buildButtonTwitterTrand(BuildContext context) {
   return Container(
       constraints: BoxConstraints.expand(height: 50),
       // ignore: sort_child_properties_last
+
       child: Center(
         child: Container(
           child: Material(
