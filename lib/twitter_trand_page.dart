@@ -33,11 +33,6 @@ class TodosScreen extends StatelessWidget {
 
   final DateSearchController = TextEditingController();
 
-  void clearText() {
-    print('Clear');
-    DateSearchController.clear();
-  }
-
   @override
   Widget build(BuildContext context) {
     final border = OutlineInputBorder(
@@ -69,9 +64,11 @@ class TodosScreen extends StatelessWidget {
                         focusedBorder: border,
                         focusedErrorBorder: border,
                         suffixIcon: IconButton(
-                          icon: Icon(Icons.clear),
-                          onPressed: clearText,
-                        ),
+                            icon: Icon(Icons.clear),
+                            onPressed: () {
+                              print('Clear');
+                              DateSearchController.clear();
+                            }),
                       ),
                       controller: DateSearchController,
                     ),
