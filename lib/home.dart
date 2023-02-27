@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
           Text("Hello   ${LoginUser}", style: TextStyle(fontSize: 26)),
+          buildButtonTwitterTrand()
           //Text(widget.user.email, style: TextStyle(fontSize: 16)),
         ]))));
   }
@@ -60,4 +61,32 @@ void signOut(BuildContext context) {
   //   MaterialPageRoute(builder: (context) => MyLoginPage()),
   // );
   // ModalRoute.withName('/'));
+}
+
+Widget buildButtonTwitterTrand() {
+  return Container(
+      constraints: BoxConstraints.expand(height: 50),
+      // ignore: sort_child_properties_last
+      child: Center(
+        child: Container(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              onTap: () {
+                print('Tapped! Twitter Trand');
+              },
+              child: Text(
+                "Twitter Trand",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
+      margin: EdgeInsets.only(top: 16),
+      padding: EdgeInsets.all(12));
 }
