@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 class Todo {
@@ -25,9 +27,16 @@ void main() {
 }
 
 class TodosScreen extends StatelessWidget {
-  const TodosScreen({super.key, required this.todos});
+  TodosScreen({super.key, required this.todos});
 
   final List<Todo> todos;
+
+  final DateSearchController = TextEditingController();
+
+  void clearText() {
+    print('Clear');
+    DateSearchController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +59,6 @@ class TodosScreen extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      //controller: _textController,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10),
                         hintText: 'Search',
@@ -61,11 +69,10 @@ class TodosScreen extends StatelessWidget {
                         focusedErrorBorder: border,
                         suffixIcon: IconButton(
                           icon: Icon(Icons.clear),
-                          onPressed: () {
-                            // _textController.clear();
-                          },
+                          onPressed: clearText,
                         ),
                       ),
+                      controller: DateSearchController,
                     ),
                   ),
                   Container(
@@ -75,7 +82,7 @@ class TodosScreen extends StatelessWidget {
                             BorderRadius.only(topRight: Radius.circular(10))),
                     child: IconButton(
                         icon: Icon(
-                          Icons.search,
+                          Icons.calendar_month,
                           color: Colors.white,
                         ),
                         onPressed: () {}),
