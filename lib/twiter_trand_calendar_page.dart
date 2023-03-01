@@ -145,9 +145,39 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                 ],
               ),
             ),
+            buildButtonSearch(
+              context,
+            )
           ],
         ),
       ),
     );
   }
+}
+
+Widget buildButtonSearch(BuildContext context) {
+  return Container(
+      constraints: BoxConstraints.expand(height: 50),
+      child: Center(
+        child: Container(
+          child: Material(
+            type: MaterialType.transparency,
+            child: InkWell(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+              onTap: () {
+                print('Tapped! Search');
+              },
+              child: Text(
+                "Search",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+            ),
+          ),
+        ),
+      ),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16), color: Colors.green[200]),
+      margin: EdgeInsets.only(top: 16),
+      padding: EdgeInsets.all(12));
 }
