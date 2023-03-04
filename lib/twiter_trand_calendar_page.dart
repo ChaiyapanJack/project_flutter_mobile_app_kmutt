@@ -149,6 +149,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
             buildButtonSearch(
               context,
             ),
+            Expanded(child: buileListview(context)),
           ],
         ),
       ),
@@ -184,24 +185,33 @@ Widget buildButtonSearch(BuildContext context) {
 }
 
 Widget buileListview(BuildContext context) {
-  final List<String> myLists = [
-    "Jack",
-    "Jay",
-    "Boss",
-  ];
+  final List<String> myLists = ["Jack", "Jay", "Boss", "Pon", "Kemen"];
 
   return ListView.builder(
-      padding: const EdgeInsets.all(8),
+      shrinkWrap: true,
       itemCount: myLists.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          child: ListView.builder(itemBuilder: (context, i) {
-            return Card(
-              child: ListTile(
-                title: Text(myLists[i]),
-              ),
-            );
-          }),
-        );
+      itemBuilder: (context, i) {
+        return ListTile(
+            title: Text(myLists[i]),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Retrieve the text the that user has entered by using the
+                    // TextEditingController.
+
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text((myLists.indexOf(myLists[i]) + 1).toString()),
+                        Text(myLists[i]),
+                        Text(myLists[i]),
+                      ],
+                    ),
+                  );
+                },
+              );
+            });
       });
 }
