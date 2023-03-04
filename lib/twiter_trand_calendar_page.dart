@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 void main() => runApp(const MainCalendar());
 
@@ -147,7 +148,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
             ),
             buildButtonSearch(
               context,
-            )
+            ),
           ],
         ),
       ),
@@ -180,4 +181,27 @@ Widget buildButtonSearch(BuildContext context) {
           borderRadius: BorderRadius.circular(16), color: Colors.green[200]),
       margin: EdgeInsets.only(top: 16),
       padding: EdgeInsets.all(12));
+}
+
+Widget buileListview(BuildContext context) {
+  final List<String> myLists = [
+    "Jack",
+    "Jay",
+    "Boss",
+  ];
+
+  return ListView.builder(
+      padding: const EdgeInsets.all(8),
+      itemCount: myLists.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
+          child: ListView.builder(itemBuilder: (context, i) {
+            return Card(
+              child: ListTile(
+                title: Text(myLists[i]),
+              ),
+            );
+          }),
+        );
+      });
 }
