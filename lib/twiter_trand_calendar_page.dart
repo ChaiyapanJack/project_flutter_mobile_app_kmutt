@@ -37,7 +37,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
   @override
   String? get restorationId => widget.restorationId;
   List<String> myLists = [];
-  List<String> test = ['J', 'Boss', 'Best', 'Mos', 'Boy'];
+  List<String> test = [];
   final DateSearchController = TextEditingController();
 
   final RestorableDateTime _selectedDate =
@@ -160,7 +160,11 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                       type: MaterialType.transparency,
                       child: InkWell(
                         borderRadius: BorderRadius.all(Radius.circular(16)),
-                        onTap: () => setState(() => myLists.addAll(test)),
+                        onTap: () => setState(() {
+                          print("Tap Search");
+                          test = ['J', 'Boss', 'Best', 'Mos', 'Boy'];
+                          myLists.addAll(test);
+                        }),
                         child: Text(
                           "Search",
                           textAlign: TextAlign.center,
