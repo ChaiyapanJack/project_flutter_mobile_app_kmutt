@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 void main() => runApp(const MainCalendar());
 
 class MainCalendar extends StatelessWidget {
@@ -97,6 +99,8 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
     final border = OutlineInputBorder(
         borderRadius: BorderRadius.horizontal(left: Radius.circular(5)));
 
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     var mytest;
     var list = List;
     return Scaffold(
@@ -167,6 +171,27 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                             myLists.clear();
                             test = ['A', 'B', 'C', 'D', 'E'];
                             myLists.addAll(test);
+                            // GetUserName('2023-01-01-01');
+
+                            CollectionReference users =
+                                FirebaseFirestore.instance.collection('trends');
+                            // print(users);
+                            // var data = users.doc('2023-01-01-01').get();
+
+                            // final docRef = FirebaseFirestore.instance
+                            //     .collection('trends')
+                            //     .doc('2023-01-01-01');
+                            // docRef.get().then(
+                            //   (DocumentSnapshot doc) {
+                            //     final data = doc.data() as Map<String, dynamic>;
+                            //     print(data);
+                            //   },
+                            //   onError: (e) =>
+                            //       print("Error getting document: $e"),
+                            // );
+
+                            var textTTT = OutputWindow("Test call class");
+                            print(textTTT);
                           }),
                           child: Text(
                             "Search",
@@ -235,5 +260,74 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         ),
       ),
     );
+  }
+}
+
+class GetUserName extends StatelessWidget {
+  final String documentId;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  GetUserName(this.documentId);
+
+  @override
+  Widget build(BuildContext context) {
+    print("In class");
+    CollectionReference users = FirebaseFirestore.instance.collection('trends');
+
+    print(documentId);
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc('2023-01-01-01').get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print("111111111");
+          return Text("Something went wrong");
+        }
+
+        if (snapshot.hasData && !snapshot.data!.exists) {
+          print("2222222");
+          return Text("Document does not exist");
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          print("33333333");
+          print(data);
+          return Text("Full Name: ${data['name']} ");
+        }
+        print("4444444444");
+        return Text("loading");
+      },
+    );
+  }
+}
+
+class OutputWindow extends StatelessWidget {
+  final String output;
+  OutputWindow(this.output);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(output,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 35,
+          color: Colors.black87,
+        ));
+
+    print("dddd55555");
+  }
+}
+
+class Animals {
+  var animalList = ['dog', 'cat', 'cow'];
+
+  // function for printing the list of animals
+
+  void animalListPrinter() {
+    for (var animal in animalList) {
+      print(animal);
+    }
   }
 }
