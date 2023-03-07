@@ -191,6 +191,11 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                 itemCount: myLists.length,
                 itemBuilder: (context, index) => Card(
                     child: ListTile(
+                        leading: CircleAvatar(
+                            backgroundImage: AssetImage('images/' +
+                                (myLists.indexOf(myLists[index]) + 1)
+                                    .toString() +
+                                '.png')),
                         title: Text(myLists[index]),
                         onTap: () {
                           showDialog(
