@@ -162,7 +162,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                         borderRadius: BorderRadius.all(Radius.circular(16)),
                         onTap: () => setState(() {
                           print("Tap Search");
-                          test = ['J', 'Boss', 'Best', 'Mos', 'Boy'];
+                          test = ['A', 'B', 'C', 'D', 'E'];
                           myLists.addAll(test);
                         }),
                         child: Text(
