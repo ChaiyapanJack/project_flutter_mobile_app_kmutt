@@ -24,7 +24,9 @@ class TwitterSearchPage extends StatefulWidget {
   final String? restorationId;
 
   @override
-  State<TwitterSearchPage> createState() => _TwitterSearchPage();
+  //State<TwitterSearchPage> createState() => _TwitterSearchPage();
+
+  _TwitterSearchPage createState() => _TwitterSearchPage();
 }
 
 /// RestorationProperty objects can be used because of RestorationMixin.
@@ -34,7 +36,8 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
   // the [StatefulWidget]'s constructor.
   @override
   String? get restorationId => widget.restorationId;
-
+  List<String> myLists = [];
+  List<String> test = ['J', 'Boss', 'Best', 'Mos', 'Boy'];
   final DateSearchController = TextEditingController();
 
   final RestorableDateTime _selectedDate =
@@ -94,6 +97,8 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
     final border = OutlineInputBorder(
         borderRadius: BorderRadius.horizontal(left: Radius.circular(5)));
 
+    var mytest;
+    var list = List;
     return Scaffold(
       backgroundColor: Colors.green[50],
       appBar: AppBar(
@@ -146,72 +151,61 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                 ],
               ),
             ),
-            buildButtonSearch(
-              context,
-            ),
-            Expanded(child: buileListview(context)),
+            Container(
+                constraints: BoxConstraints.expand(height: 50),
+                // ignore: sort_child_properties_last
+                child: Center(
+                  child: Container(
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: InkWell(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        onTap: () => setState(() => myLists.addAll(test)),
+                        child: Text(
+                          "Search",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.green[200]),
+                margin: EdgeInsets.only(top: 16),
+                padding: EdgeInsets.all(12)),
+            Expanded(
+                child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: myLists.length,
+              itemBuilder: (context, index) => ListTile(
+                  title: Text(myLists[index]),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          // Retrieve the text the that user has entered by using the
+                          // TextEditingController.
+
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text((myLists.indexOf(myLists[index]) + 1)
+                                  .toString()),
+                              Text(myLists[index]),
+                              Text(myLists[index]),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  }),
+            )),
           ],
         ),
       ),
     );
   }
-}
-
-Widget buildButtonSearch(BuildContext context) {
-  return Container(
-      constraints: BoxConstraints.expand(height: 50),
-      child: Center(
-        child: Container(
-          child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              onTap: () {
-                print('Tapped! Search');
-              },
-              child: Text(
-                "Search",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16), color: Colors.green[200]),
-      margin: EdgeInsets.only(top: 16),
-      padding: EdgeInsets.all(12));
-}
-
-Widget buileListview(BuildContext context) {
-  final List<String> myLists = ["Jack", "Jay", "Boss", "Pon", "Kemen"];
-
-  return ListView.builder(
-      shrinkWrap: true,
-      itemCount: myLists.length,
-      itemBuilder: (context, i) {
-        return ListTile(
-            title: Text(myLists[i]),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // Retrieve the text the that user has entered by using the
-                    // TextEditingController.
-
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text((myLists.indexOf(myLists[i]) + 1).toString()),
-                        Text(myLists[i]),
-                        Text(myLists[i]),
-                      ],
-                    ),
-                  );
-                },
-              );
-            });
-      });
 }
