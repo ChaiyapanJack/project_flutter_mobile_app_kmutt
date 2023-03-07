@@ -151,62 +151,69 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                 ],
               ),
             ),
-            Container(
-                constraints: BoxConstraints.expand(height: 50),
-                // ignore: sort_child_properties_last
-                child: Center(
-                  child: Container(
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: InkWell(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                        onTap: () => setState(() {
-                          print("Tap Search");
-                          test = ['A', 'B', 'C', 'D', 'E'];
-                          myLists.addAll(test);
-                        }),
-                        child: Text(
-                          "Search",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  constraints: BoxConstraints.expand(height: 50),
+                  // ignore: sort_child_properties_last
+                  child: Center(
+                    child: Container(
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: InkWell(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                          onTap: () => setState(() {
+                            print("Tap Search");
+                            test = ['A', 'B', 'C', 'D', 'E'];
+                            myLists.addAll(test);
+                          }),
+                          child: Text(
+                            "Search",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Colors.green[200]),
-                margin: EdgeInsets.only(top: 16),
-                padding: EdgeInsets.all(12)),
-            Expanded(
-                child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: myLists.length,
-              itemBuilder: (context, index) => ListTile(
-                  title: Text(myLists[index]),
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          // Retrieve the text the that user has entered by using the
-                          // TextEditingController.
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.green[200]),
+                  margin: EdgeInsets.only(top: 16),
+                  padding: EdgeInsets.all(12)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Expanded(
+                  child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: myLists.length,
+                itemBuilder: (context, index) => Card(
+                    child: ListTile(
+                        title: Text(myLists[index]),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                // Retrieve the text the that user has entered by using the
+                                // TextEditingController.
 
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text((myLists.indexOf(myLists[index]) + 1)
-                                  .toString()),
-                              Text(myLists[index]),
-                              Text(myLists[index]),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  }),
-            )),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text((myLists.indexOf(myLists[index]) + 1)
+                                        .toString()),
+                                    Text(myLists[index]),
+                                    Text(myLists[index]),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        })),
+              )),
+            ),
           ],
         ),
       ),
