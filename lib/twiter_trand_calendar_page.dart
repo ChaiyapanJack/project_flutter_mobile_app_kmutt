@@ -208,9 +208,20 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text((myLists.indexOf(myLists[index]) + 1)
-                                        .toString()),
-                                    Text(myLists[index]),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Image.asset(
+                                        'images/' +
+                                            (myLists.indexOf(myLists[index]) +
+                                                    1)
+                                                .toString() +
+                                            '.png',
+                                        width: 50,
+                                        height: 50,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Text(DateSearchController.text),
                                     Text(myLists[index]),
                                   ],
                                 ),
