@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -171,27 +173,39 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                             myLists.clear();
                             test = ['A', 'B', 'C', 'D', 'E'];
                             myLists.addAll(test);
-                            // GetUserName('2023-01-01-01');
 
-                            CollectionReference users =
-                                FirebaseFirestore.instance.collection('trends');
-                            // print(users);
-                            // var data = users.doc('2023-01-01-01').get();
+                            FirebaseFirestore.instance
+                                .collection("trends")
+                                //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
+                                // .where(DateTime.parse('snap_time'.toString()),
+                                //     isGreaterThanOrEqualTo: _selectedDate.value)
+                                // .where("snap_time",
+                                //     isLessThanOrEqualTo: _selectedDate.value)
+                                .where('name', isEqualTo: 'Happy New Year')
+                                // .where(Text(timeago
+                                //     .format(DateTime.tryParse(
+                                //         document['snap_time']
+                                //             .toDate()
+                                //             .toString()))
+                                //     .toString()))
+                                .get()
+                                .then(
+                              (querySnapshot) {
+                                print("Successfully completed");
+                                for (var docSnapshot in querySnapshot.docs) {
+                                  print(
+                                      '${docSnapshot.id} => ${docSnapshot.data()['snap_time']}');
+                                  print((_selectedDate.value));
+                                  print(DateTime.parse(docSnapshot
+                                      .data()['snap_time']
+                                      .toDate()
+                                      .toString()));
 
-                            // final docRef = FirebaseFirestore.instance
-                            //     .collection('trends')
-                            //     .doc('2023-01-01-01');
-                            // docRef.get().then(
-                            //   (DocumentSnapshot doc) {
-                            //     final data = doc.data() as Map<String, dynamic>;
-                            //     print(data);
-                            //   },
-                            //   onError: (e) =>
-                            //       print("Error getting document: $e"),
-                            // );
-
-                            var textTTT = OutputWindow("Test call class");
-                            print(textTTT);
+                                  ///DateTime.parse(timestamp.toDate().toString())
+                                }
+                              },
+                              onError: (e) => print("Error completing: $e"),
+                            );
                           }),
                           child: Text(
                             "Search",
