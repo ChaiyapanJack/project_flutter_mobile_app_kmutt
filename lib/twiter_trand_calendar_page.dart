@@ -71,7 +71,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
           initialDate: new DateTime.now().add(new Duration(days: -1)),
           firstDate: DateTime(
               2023), //new DateTime.now().subtract(new Duration(days: 30)),
-          lastDate: new DateTime.now().add(new Duration(days: 30)),
+          lastDate: new DateTime.now().add(new Duration(days: -1)),
         );
       },
     );
