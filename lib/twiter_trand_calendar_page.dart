@@ -173,21 +173,27 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                             myLists.clear();
                             test = ['A', 'B', 'C', 'D', 'E'];
                             myLists.addAll(test);
-                            // var startAtTimestamp =
-                            //     Timestamp.fromMillisecondsSinceEpoch(
-                            //         DateTime.parse("${_selectedDate.value}")
-                            //             .millisecondsSinceEpoch);
-                            print(_selectedDate.value);
-                            // print(startAtTimestamp);
+                            var startAtTimestamp =
+                                Timestamp.fromMillisecondsSinceEpoch(
+                                    DateTime.parse("${_selectedDate.value}")
+                                        .millisecondsSinceEpoch);
 
+                            var endAtTimestamp = Timestamp
+                                .fromMillisecondsSinceEpoch(DateTime.parse(
+                                        "${_selectedDate.value.add(Duration(days: 1))}")
+                                    .millisecondsSinceEpoch);
+
+                            print(_selectedDate.value);
+                            print(startAtTimestamp);
+                            print(endAtTimestamp);
                             FirebaseFirestore.instance
                                 .collection("trends")
                                 //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
-                                // .where(DateTime.parse('snap_time'.toString()),
-                                //     isGreaterThanOrEqualTo: _selectedDate.value)
-                                // .where("snap_time",
-                                //     isLessThanOrEqualTo: _selectedDate.value)
-                                .where('name', isEqualTo: 'Happy New Year')
+                                .where("snap_time",
+                                    isGreaterThanOrEqualTo: startAtTimestamp)
+                                .where("snap_time",
+                                    isLessThanOrEqualTo: endAtTimestamp)
+                                // .where('name', isEqualTo: 'Happy New Year')
                                 // .where(Text(timeago
                                 //     .format(DateTime.tryParse(
                                 //         document['snap_time']
@@ -200,12 +206,12 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                                 print("Successfully completed");
                                 for (var docSnapshot in querySnapshot.docs) {
                                   print(
-                                      '${docSnapshot.id} => ${docSnapshot.data()['snap_time']}');
-                                  print((_selectedDate.value));
-                                  print(DateTime.parse(docSnapshot
-                                      .data()['snap_time']
-                                      .toDate()
-                                      .toString()));
+                                      '${docSnapshot.id} => ${docSnapshot.data()['name']}');
+
+                                  // print(DateTime.parse(docSnapshot
+                                  //     .data()['snap_time']
+                                  //     .toDate()
+                                  //     .toString()));
 
                                   ///DateTime.parse(timestamp.toDate().toString())
                                 }
