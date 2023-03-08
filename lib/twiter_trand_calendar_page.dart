@@ -42,6 +42,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
   String? get restorationId => widget.restorationId;
   List<String> myLists = [];
   List<String> test = [];
+  List<String> trandList = [];
   final DateSearchController = TextEditingController();
 
   final RestorableDateTime _selectedDate =
@@ -94,6 +95,53 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         // ));
       });
     }
+  }
+
+  void getDataFirebase() {
+    var startAtTimestamp = Timestamp.fromMillisecondsSinceEpoch(
+        DateTime.parse("${_selectedDate.value}").millisecondsSinceEpoch);
+
+    var endAtTimestamp = Timestamp.fromMillisecondsSinceEpoch(
+        DateTime.parse("${_selectedDate.value.add(Duration(days: 1))}")
+            .millisecondsSinceEpoch);
+
+    FirebaseFirestore.instance
+        .collection("trends")
+        //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
+        .where("snap_time", isGreaterThanOrEqualTo: startAtTimestamp)
+        .where("snap_time", isLessThanOrEqualTo: endAtTimestamp)
+        // .where('name', isEqualTo: 'Happy New Year')
+        // .where(Text(timeago
+        //     .format(DateTime.tryParse(
+        //         document['snap_time']
+        //             .toDate()
+        //             .toString()))
+        //     .toString()))
+        .get()
+        .then(
+      (querySnapshot) {
+        print("Successfully completed");
+        trandList.clear();
+        for (var docSnapshot in querySnapshot.docs) {
+          //trandList.addAll(docSnapshot.data()['name']);
+          print('${docSnapshot.id} => ${docSnapshot.data()['name']}');
+          trandList.addAll([docSnapshot.data()['name']]);
+          // print(DateTime.parse(docSnapshot
+          //     .data()['snap_time']
+          //     .toDate()
+          //     .toString()));
+
+          ///DateTime.parse(timestamp.toDate().toString())
+          docSnapshot.data().clear();
+        }
+
+        print("เข้ามาแล้ว กงนี้ $trandList");
+        querySnapshot.docs.clear();
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
+
+    myLists.addAll(trandList);
   }
 
   @override
@@ -171,53 +219,11 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                           onTap: () => setState(() {
                             print("Tap Search");
                             myLists.clear();
-                            test = ['A', 'B', 'C', 'D', 'E'];
-                            myLists.addAll(test);
-                            var startAtTimestamp =
-                                Timestamp.fromMillisecondsSinceEpoch(
-                                    DateTime.parse("${_selectedDate.value}")
-                                        .millisecondsSinceEpoch);
-
-                            var endAtTimestamp = Timestamp
-                                .fromMillisecondsSinceEpoch(DateTime.parse(
-                                        "${_selectedDate.value.add(Duration(days: 1))}")
-                                    .millisecondsSinceEpoch);
+                            getDataFirebase();
 
                             print(_selectedDate.value);
-                            print(startAtTimestamp);
-                            print(endAtTimestamp);
-                            FirebaseFirestore.instance
-                                .collection("trends")
-                                //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
-                                .where("snap_time",
-                                    isGreaterThanOrEqualTo: startAtTimestamp)
-                                .where("snap_time",
-                                    isLessThanOrEqualTo: endAtTimestamp)
-                                // .where('name', isEqualTo: 'Happy New Year')
-                                // .where(Text(timeago
-                                //     .format(DateTime.tryParse(
-                                //         document['snap_time']
-                                //             .toDate()
-                                //             .toString()))
-                                //     .toString()))
-                                .get()
-                                .then(
-                              (querySnapshot) {
-                                print("Successfully completed");
-                                for (var docSnapshot in querySnapshot.docs) {
-                                  print(
-                                      '${docSnapshot.id} => ${docSnapshot.data()['name']}');
-
-                                  // print(DateTime.parse(docSnapshot
-                                  //     .data()['snap_time']
-                                  //     .toDate()
-                                  //     .toString()));
-
-                                  ///DateTime.parse(timestamp.toDate().toString())
-                                }
-                              },
-                              onError: (e) => print("Error completing: $e"),
-                            );
+                            // print(startAtTimestamp);
+                            // print(endAtTimestamp);
                           }),
                           child: Text(
                             "Search",
@@ -286,74 +292,5 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         ),
       ),
     );
-  }
-}
-
-class GetUserName extends StatelessWidget {
-  final String documentId;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  GetUserName(this.documentId);
-
-  @override
-  Widget build(BuildContext context) {
-    print("In class");
-    CollectionReference users = FirebaseFirestore.instance.collection('trends');
-
-    print(documentId);
-
-    return FutureBuilder<DocumentSnapshot>(
-      future: users.doc('2023-01-01-01').get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          print("111111111");
-          return Text("Something went wrong");
-        }
-
-        if (snapshot.hasData && !snapshot.data!.exists) {
-          print("2222222");
-          return Text("Document does not exist");
-        }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          print("33333333");
-          print(data);
-          return Text("Full Name: ${data['name']} ");
-        }
-        print("4444444444");
-        return Text("loading");
-      },
-    );
-  }
-}
-
-class OutputWindow extends StatelessWidget {
-  final String output;
-  OutputWindow(this.output);
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(output,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 35,
-          color: Colors.black87,
-        ));
-
-    print("dddd55555");
-  }
-}
-
-class Animals {
-  var animalList = ['dog', 'cat', 'cow'];
-
-  // function for printing the list of animals
-
-  void animalListPrinter() {
-    for (var animal in animalList) {
-      print(animal);
-    }
   }
 }
