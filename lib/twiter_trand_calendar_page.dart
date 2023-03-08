@@ -69,7 +69,8 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
           restorationId: 'date_picker_dialog',
           initialEntryMode: DatePickerEntryMode.calendarOnly,
           initialDate: new DateTime.now().add(new Duration(days: -1)),
-          firstDate: new DateTime.now().subtract(new Duration(days: 30)),
+          firstDate: DateTime(
+              2023), //new DateTime.now().subtract(new Duration(days: 30)),
           lastDate: new DateTime.now().add(new Duration(days: 30)),
         );
       },
