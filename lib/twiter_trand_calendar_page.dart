@@ -97,7 +97,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
     }
   }
 
-  void getDataFirebase() {
+  Future<void> getDataFirebase() async {
     var startAtTimestamp = Timestamp.fromMillisecondsSinceEpoch(
         DateTime.parse("${_selectedDate.value}").millisecondsSinceEpoch);
 
@@ -105,18 +105,11 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         DateTime.parse("${_selectedDate.value.add(Duration(days: 1))}")
             .millisecondsSinceEpoch);
 
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection("trends")
         //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
         .where("snap_time", isGreaterThanOrEqualTo: startAtTimestamp)
         .where("snap_time", isLessThanOrEqualTo: endAtTimestamp)
-        // .where('name', isEqualTo: 'Happy New Year')
-        // .where(Text(timeago
-        //     .format(DateTime.tryParse(
-        //         document['snap_time']
-        //             .toDate()
-        //             .toString()))
-        //     .toString()))
         .get()
         .then(
       (querySnapshot) {
@@ -137,11 +130,10 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
 
         print("เข้ามาแล้ว กงนี้ $trandList");
         querySnapshot.docs.clear();
+        //return trandList;
       },
-      onError: (e) => print("Error completing: $e"),
+      onError: (e) => {print("Error completing: $e")},
     );
-
-    myLists.addAll(trandList);
   }
 
   @override
@@ -216,15 +208,18 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                         type: MaterialType.transparency,
                         child: InkWell(
                           borderRadius: BorderRadius.all(Radius.circular(16)),
-                          onTap: () => setState(() {
+                          onTap: () async {
                             print("Tap Search");
                             myLists.clear();
-                            getDataFirebase();
+                            print('Done');
+                            await getDataFirebase();
+                            print('Get');
 
-                            print(_selectedDate.value);
-                            // print(startAtTimestamp);
-                            // print(endAtTimestamp);
-                          }),
+                            setState(() {
+                              myLists.addAll(trandList);
+                              print(myLists);
+                            });
+                          },
                           child: Text(
                             "Search",
                             textAlign: TextAlign.center,
