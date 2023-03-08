@@ -131,6 +131,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
 
         print("เข้ามาแล้ว กงนี้ $trandList");
         querySnapshot.docs.clear();
+
         //return trandList;
       },
       onError: (e) => {print("Error completing: $e")},
