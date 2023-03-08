@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -173,12 +173,12 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                             myLists.clear();
                             test = ['A', 'B', 'C', 'D', 'E'];
                             myLists.addAll(test);
-                            var startAtTimestamp =
-                                Timestamp.fromMillisecondsSinceEpoch(
-                                    DateTime.parse("${_selectedDate.value}")
-                                        .millisecondsSinceEpoch);
+                            // var startAtTimestamp =
+                            //     Timestamp.fromMillisecondsSinceEpoch(
+                            //         DateTime.parse("${_selectedDate.value}")
+                            //             .millisecondsSinceEpoch);
                             print(_selectedDate.value);
-                            print(startAtTimestamp);
+                            // print(startAtTimestamp);
 
                             FirebaseFirestore.instance
                                 .collection("trends")
