@@ -41,7 +41,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
   @override
   String? get restorationId => widget.restorationId;
   List<String> myLists = [];
-  List<String> test = [];
+  List<String> tweetVolumn = [];
   List<String> trandList = [];
   final DateSearchController = TextEditingController();
 
@@ -108,9 +108,13 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
 
     await FirebaseFirestore.instance
         .collection("trends")
+
         //.orderBy('name').startAt(Text('2023-01-01')).endAt(name+'\uf8ff')
+
         .where("snap_time", isGreaterThanOrEqualTo: startAtTimestamp)
         .where("snap_time", isLessThanOrEqualTo: endAtTimestamp)
+        .orderBy("snap_time")
+        .orderBy("tweet_volume", descending: true)
         .get()
         .then(
       (querySnapshot) {
@@ -118,8 +122,10 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         trandList.clear();
         for (var docSnapshot in querySnapshot.docs) {
           //trandList.addAll(docSnapshot.data()['name']);
-          print('${docSnapshot.id} => ${docSnapshot.data()['name']}');
+          print(
+              '${docSnapshot.id} => ${docSnapshot.data()['name']} => ${docSnapshot.data()['tweet_volumn'].toString()}');
           trandList.addAll([docSnapshot.data()['name']]);
+          tweetVolumn.addAll([docSnapshot.data()['tweet_volume'].toString()]);
           // print(DateTime.parse(docSnapshot
           //     .data()['snap_time']
           //     .toDate()
@@ -130,6 +136,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
         }
 
         print("เข้ามาแล้ว กงนี้ $trandList");
+        print(tweetVolumn);
         querySnapshot.docs.clear();
 
         //return trandList;
@@ -277,6 +284,7 @@ class _TwitterSearchPage extends State<TwitterSearchPage>
                                     ),
                                     Text(DateSearchController.text),
                                     Text(myLists[index]),
+                                    Text('Tweet ${tweetVolumn[index]}  ครั้ง')
                                   ],
                                 ),
                               );
