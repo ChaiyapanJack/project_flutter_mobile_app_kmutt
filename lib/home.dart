@@ -79,7 +79,7 @@ void signOut(BuildContext context) {
 
 Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
   return Container(
-      constraints: BoxConstraints.expand(height: 50),
+      constraints: BoxConstraints.expand(height: 60),
       // ignore: sort_child_properties_last
 
       child: Center(
