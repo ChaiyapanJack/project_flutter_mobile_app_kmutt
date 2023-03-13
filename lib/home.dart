@@ -103,12 +103,12 @@ Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
                   child: Icon(
                     Icons.favorite_sharp,
                     color: Colors.lightBlue,
-                    size: 30.0,
+                    size: 40.0,
                     semanticLabel: 'Text to announce in accessibility modes',
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 50),
+                  padding: EdgeInsets.only(left: 40),
                   child: Text(
                     "Twitter Trand",
                     textAlign: TextAlign.center,
