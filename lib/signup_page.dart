@@ -34,6 +34,8 @@ class _MySignUpPageState extends State<MySignUpPage> {
         print('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
+      } else {
+        Navigator.of(context).pop();
       }
     } catch (e) {
       print(e);
