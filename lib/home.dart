@@ -45,14 +45,24 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: Container(
-            child: Center(
-                child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-          Text("Hello   ${LoginUser}", style: TextStyle(fontSize: 26)),
-          buildButtonTwitterTrand(context),
-          buildButtonTwitterTrandCarlendar(context),
-          //Text(widget.user.email, style: TextStyle(fontSize: 16)),
-        ]))));
+            child: Container(
+          child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: Text("Hello   ${LoginUser}",
+                  style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.orange[400])),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 0),
+              child: buildButtonMenuTrandTwitter(context),
+            ),
+            //Text(widget.user.email, style: TextStyle(fontSize: 16)),
+          ]),
+        )));
   }
 }
 
@@ -65,48 +75,6 @@ void signOut(BuildContext context) {
   //   MaterialPageRoute(builder: (context) => MyLoginPage()),
   // );
   // ModalRoute.withName('/'));
-}
-
-Widget buildButtonTwitterTrand(BuildContext context) {
-  return Container(
-      constraints: BoxConstraints.expand(height: 50),
-      // ignore: sort_child_properties_last
-
-      child: Center(
-        child: Container(
-          child: Material(
-            type: MaterialType.transparency,
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(16)),
-              onTap: () {
-                print('Tapped! Twitter Trand');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TodosScreen(
-                            todos: List.generate(
-                              20,
-                              (i) => Todo(
-                                'Todo $i',
-                                'A description of what needs to be done for Todo $i',
-                              ),
-                            ),
-                          )),
-                );
-              },
-              child: Text(
-                "Twitter Trand",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
-        ),
-      ),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
-      margin: EdgeInsets.only(top: 16),
-      padding: EdgeInsets.all(12));
 }
 
 Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
@@ -127,17 +95,57 @@ Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
                   MaterialPageRoute(builder: (context) => TwitterSearchPage()),
                 );
               },
-              child: Text(
-                "Twitter Trand Calendar",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
+              child: Row(children: const <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0),
+                  child: Icon(
+                    Icons.favorite_sharp,
+                    color: Colors.lightBlue,
+                    size: 30.0,
+                    semanticLabel: 'Text to announce in accessibility modes',
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 50),
+                  child: Text(
+                    "Twitter Trand",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ]),
             ),
           ),
         ),
       ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
-      margin: EdgeInsets.only(top: 16),
+      margin: EdgeInsets.only(top: 10),
       padding: EdgeInsets.all(12));
+}
+
+Widget buildButtonMenuTrandTwitter(BuildContext context) {
+  return Container(
+      color: Colors.green[50],
+      child: Center(
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(colors: [
+                  Color.fromARGB(255, 246, 238, 163),
+                  Colors.green
+                ])),
+            margin: EdgeInsets.all(32),
+            padding: EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                buildButtonTwitterTrandCarlendar(context),
+              ],
+            )),
+      ));
 }
