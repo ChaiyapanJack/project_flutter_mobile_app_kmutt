@@ -51,9 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.only(top: 30.0),
               child: Text("Hello   ${LoginUser}",
                   style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.orange[400])),
+                      fontSize: 33,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 2
+                        ..color = Colors.green[400]!)),
             ),
 
             Padding(
