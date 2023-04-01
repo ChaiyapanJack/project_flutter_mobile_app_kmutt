@@ -125,7 +125,7 @@ Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
       ),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16), color: Colors.orange[200]),
-      margin: EdgeInsets.only(top: 10),
+      margin: EdgeInsets.only(top: 3, bottom: 3),
       padding: EdgeInsets.all(12));
 }
 
@@ -140,8 +140,8 @@ Widget buildButtonMenuTrandTwitter(BuildContext context) {
                   Color.fromARGB(255, 246, 238, 163),
                   Colors.green
                 ])),
-            margin: EdgeInsets.all(32),
-            padding: EdgeInsets.all(17),
+            margin: EdgeInsets.all(25),
+            padding: EdgeInsets.all(13),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
