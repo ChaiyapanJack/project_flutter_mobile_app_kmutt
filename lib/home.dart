@@ -99,7 +99,7 @@ Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
               },
               child: Row(children: const <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: 30.0),
+                  padding: EdgeInsets.only(left: 20.0),
                   child: Icon(
                     Icons.favorite_sharp,
                     color: Colors.lightBlue,
@@ -108,7 +108,7 @@ Widget buildButtonTwitterTrandCarlendar(BuildContext context) {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 40),
+                  padding: EdgeInsets.only(left: 30),
                   child: Text(
                     "Twitter Trand",
                     textAlign: TextAlign.center,
@@ -141,7 +141,7 @@ Widget buildButtonMenuTrandTwitter(BuildContext context) {
                   Colors.green
                 ])),
             margin: EdgeInsets.all(32),
-            padding: EdgeInsets.all(24),
+            padding: EdgeInsets.all(17),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
